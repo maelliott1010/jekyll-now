@@ -25,7 +25,7 @@ I love research, teaching, and the philosophy of science in general!
 
 Check out my [LinkedIn](https://www.linkedin.com/in/madisonelliott1010/) for more details about my professional experience.
 
-<img src="DSC_7486.jpg" width="400">
+<img src="/images/DSC_7486.jpg" width="400">
 
 I am also passionate about skiing, rock climbing, and fly fishing:
 * *Ski*: Backcountry skiing is so much fun! But I also like to be safe: I have a couple avalanche certifications, experience with glacier travel, and basic crevasse rescue skills.
