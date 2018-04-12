@@ -8,6 +8,10 @@ name: Madison Elliott
 # Short bio or description (displayed in the header)
 description: Cognitive Science PhD Student interested in Vision, Data Visualization, and Multivariate Behavioral Statistics!
 
+# baseurl: "" # change this to the subpath of your site, e.g. /blog. Leave it empty if you don't need it.
+url: "https://maelliott1010.github.io" # change this to the base hostname & protocol for your site
+
+
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
 avatar: https://raw.githubusercontent.com/maelliott1010/master/images/jekyll-logo.png
 
