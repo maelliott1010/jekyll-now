@@ -24,9 +24,9 @@ I love research, teaching, and the philosophy of science in general!
 Check out my [LinkedIn](https://www.linkedin.com/in/madisonelliott1010/) for more details about my professional experience.
 
 I am also passionate about skiing, rock climbing, and fly fishing:
-*Ski*: Backcountry skiing is so much fun! But I also like to be safe: I have a couple avalanche certifications, experience with glacier travel, and basic crevasse rescue skills.
-*Climb*: I love sport climbing and bouldering outside. My summer 2018 goal is to get better at placing traditional gear and climb The Chief. Time to hit the hangboard!
-*Fish*: River fishing rules! I target all kinds of species along Coastal British Columbia and Vancouver Island. This includes rainbow, cutthroat, and bull trout; steelhead!, chinook, coho, pink, and (my personal favorite) chum salmon! I love my single hand Reddington Path rod, and I'm learning to love my new Echo spey rod. My two-handed casting is a work in progress, but I can't wait to explore new waters this fall!
+* *Ski*: Backcountry skiing is so much fun! But I also like to be safe: I have a couple avalanche certifications, experience with glacier travel, and basic crevasse rescue skills.
+* *Climb*: I love sport climbing and bouldering outside. My summer 2018 goal is to get better at placing traditional gear and climb The Chief. Time to hit the hangboard!
+* *Fish*: River fishing rules! I target all kinds of species along Coastal British Columbia and Vancouver Island. This includes rainbow, cutthroat, and bull trout; steelhead!, chinook, coho, pink, and (my personal favorite) chum salmon! I love my single hand Reddington Path rod, and I'm learning to love my new Echo spey rod. My two-handed casting is a work in progress, but I can't wait to explore new waters this fall!
 
 
 
