@@ -9,6 +9,8 @@ permalink: /about/
 My interests are: Human and Computer Vision, Data Visualization, and Multivariate Behavioral Statistics. 
 I love research, teaching, and the philosophy of science in general!
 
+<img src="http://collab.sites.olt.ubc.ca/wp-content/blogs.dir/2577/files/2015/08/VisCogLab770X350slider1.png?b=2577&w=770&h=350&zc=1" width="400">
+
 **Active research:**
 
 *Vision*: Exploring the perception of correlation in multiclass scatterplots. In this work, I am investigating how the perception of one population of data changes in the presense of another. This work is informative for both data visualization (e.g., how to design better scatterplot displays), as well as for vision science (e.g., how feature selection works in scenes containing multi-dimensional ensembles). I firmly believe that basic science, like human perception, can be informed and inspired by studying applied stimuli and phenomena, like data visualizations! This work is conducted under the supervision of my research advisor, Dr. Ron Rensink, at the UBC Visual Cognition Lab.
@@ -22,6 +24,8 @@ I love research, teaching, and the philosophy of science in general!
 * I used to run a coding team of 10-20 undergraduates (at any given time) in my lab. We built a Java framework for perception experiments! It takes .xlsx, .jSON, and .XML input and makes interactive experiments that record and output participant data. We have a private GitHub repository with all of the code- if you're interested in checking it out, you can email me for access.
 
 Check out my [LinkedIn](https://www.linkedin.com/in/madisonelliott1010/) for more details about my professional experience.
+
+<img src="https://www.instagram.com/p/BbtSuldhJmf/?taken-by=madisonannelliott" width="400">
 
 I am also passionate about skiing, rock climbing, and fly fishing:
 * *Ski*: Backcountry skiing is so much fun! But I also like to be safe: I have a couple avalanche certifications, experience with glacier travel, and basic crevasse rescue skills.
