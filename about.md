@@ -17,7 +17,7 @@ I love research, teaching, and the philosophy of science in general!
 
 *Computer Science*: Edge bundling and network layouts- together at last! In this work, I am investigating the utility of Low Stretch Spanning Trees (a cool, recent discovery from the math world) for the quasi-tree edge bundling and layout. In this project, we revisit the utility of quasi-tree layouts, and demonstrate how to promote edge bundling to a first class data abstraction. These features enable new types of visual displays and interaction idioms for the graph drawing/network visualization community. This work is conducted under the supervision of Dr. Tamara Munzner.
 
-If you too believe in applied perception, or want to learn more, check out the initiative I co-founded @ [VisXVision](www.visxvision.com)
+If you too believe in applied perception, or want to learn more, check out the initiative I co-founded here @ [VisXVision.com](https://visxvision.com/about/)
 
 **Other interests:**
 
