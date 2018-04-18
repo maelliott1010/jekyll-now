@@ -1,4 +1,4 @@
-#
+t#
 # This file contains configuration flags to customize your site
 #
 
@@ -25,9 +25,9 @@ footer-links:
   email: maelliott1010@gmail.com
   facebook:
   flickr:
-  github: barryclark/jekyll-now
+  github: maelliott1010
   instagram: madisonannelliott
-  linkedin:
+  linkedin: https://www.linkedin.com/in/madisonelliott1010/
   pinterest:
   rss: # just type anything here for a working RSS icon
   twitter: 
