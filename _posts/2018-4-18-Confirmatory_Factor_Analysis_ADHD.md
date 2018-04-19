@@ -37,7 +37,7 @@ Tools:
 - *Note*: Our data is on a 4-point scale, which is on the threshold of recommendations to either utilize a categorical or continuous estimation method (Rhemtulla, Brosseau-Liard, & Savalei, 2012). *Therefore, we also ran our analyses utilizing the unweighted least squares estimator (ULSMV) in order to account for the categorical nature of our data. Given that the pattern of results was highly similar using either the MLR or the ULSMV estimators, we only reported findings with the MLR estimator in our paper. Code for the ULSMV estimator is provided at the bottom half of this post.*  
 <br/>
 
-First, we load the **Hanckc Mueller** function. *Its use is explained below*.
+First, we load the **Hancock Mueller** function. *Its utility in this analysis is explained below*.
 ```r
 #Hancock Mueller#
 HancockMueller<-function(x){
@@ -51,7 +51,9 @@ HancockMueller<-function(x){
   }
   out
 }
-
+```
+We start with the simple One-Factor Model. We load the data in and specify our model in the code, then run the CFA and ask for a summary:
+```r
 ##One-Factor Model 
 
 Modsa1 <- '
