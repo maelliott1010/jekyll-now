@@ -8,8 +8,3 @@ The expected factor structure of ADHD symptoms has undergone many changes recent
 **In this post, I will walkthrough the R code used for our 2018 paper, which takes a confirmatory factor analysis (CFA) approach to addressing the factor structure of ADHD symptoms in adults.**
 
 
-```r
-library(psych)
-data <- blahb
-```
-
