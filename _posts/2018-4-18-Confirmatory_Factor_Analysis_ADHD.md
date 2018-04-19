@@ -212,13 +212,7 @@ summary(Runsa4,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 #Reliability
 reliability(Runsa4) 
 HancockMueller(Runsa4)
-```
-*Note:* For the bifactor models, we also computed the ECV to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015). <br/>
-<br/>
-Interpretation:
-- An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
 
-```r
 #Measurement invariance: dataset
 Runsa4A <- cfa(Modsa4, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estimator="MLR",  std.lv=TRUE, missing="FIML", group="Dataset")
 Runsa4B <- cfa(Modsa4, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estimator="MLR", std.lv=TRUE, missing="FIML", group="Dataset", group.equal=c("loadings"))
@@ -232,12 +226,21 @@ Runsa4BB <- cfa(Modsa4, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estim
 Runsa4CC <- cfa(Modsa4, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estimator="MLR", std.lv=TRUE, missing="FIML", group="Gender", group.equal=c("loadings", "intercepts"))
 lavTestLRT(Runsa4AA,Runsa4BB)
 lavTestLRT(Runsa4AA,Runsa4CC)
-
+```
+*Note:* For the bifactor models, we also computed the explained common variance (ECV) to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015).
+```r
 #Explained common variance
 L<-inspect(Runsa4, "coef")$lambda
 lsq<-L*L
 ECV.Runsa4<-sum(lsq[,1])/sum(lsq)
+```
+Here, we compute this using a function to estimate factor loadings of the general and secondary dimensions of a bifactor model. <br/>
+<br/>
+Interpretation:
+- An ECV of greater than .80 indicates that the factor loadings of the general ADHD factor are very similar to those that might be obtained by the estimate of a one-dimensional model. 
+- An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
 
+```r
 ##Bifactor Model-3#
 
 Modsa5 <- '
