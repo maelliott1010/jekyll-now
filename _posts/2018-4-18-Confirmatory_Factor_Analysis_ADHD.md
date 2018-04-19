@@ -215,7 +215,7 @@ HancockMueller(Runsa4)
 *Note:* For the bifactor models, we also computed the ECV to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015). <br/>
 <br/>
 Interpretation:
--An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
+- An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
 
 ```r
 #Measurement invariance: dataset
