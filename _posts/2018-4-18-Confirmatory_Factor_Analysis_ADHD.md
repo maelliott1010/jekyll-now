@@ -1,17 +1,19 @@
 ---
 layout: post
-title: Factor Analytic Approach to Understanding Adult ADHD: A Walkthrough of the CFA performed in Park et al. (2018)
+title:  A Factor Analytic Approach to Understanding Adult ADHD: A Walkthrough of the CFA performed in Park et al. (2018)
 ---
 
+**Before we get started, some background on ADHD symptoms...**
 The expected factor structure of ADHD symptoms has undergone many changes recently. Historically, the creation and validation of this factor structure was based on primarily juvenile male populations. Although it is typically assumed that the structure of symptoms holds across the lifespan, empirical study of the factor structure of ADHD symptoms in adults is quite recent. 
 
-This study analysis systematically examines the one-factor, two-factor, three-factor, and bifactor models of adult ADHD symptoms. 
-- First, we evaluate the fit statistics of each of the models. Next, we obtain estimates of model-based reliability (e.g., coefficient omega and coefficient omega hierarchical; Rodriguez, Reise, & Haviland, 2015).
+Our analysis systematically examines the one-factor, two-factor, three-factor, and bifactor models of adult ADHD symptoms. 
+- First, we evaluate the fit statistics of each of the models. 
+- Next, we obtain estimates of model-based reliability (e.g., coefficient omega and coefficient omega hierarchical; Rodriguez, Reise, & Haviland, 2015).
 - For the bifactor models, we examine estimates for the unidimensionality of the scale (i.e., explained common variance [ECV]; Rodriguez et al., 2015), and estimates of stability and construct replicability for each factor (e.g., H-factor; Hancock & Mueller, 2001). 
 - As exploratory analyses, we examine the invariance of the models across both gender and datasets. 
 - Finally, we explore model validity by regressing variables with known associations with ADHD symptoms, such as education, depression, hostility, and both positive and negative parenting on the latent factors as specified in the best-fitting models. 
 
-**In this post, I will walkthrough the R code used for our 2018 paper, which takes a confirmatory factor analysis (CFA) approach to addressing the factor structure of ADHD symptoms in adults.**
+**In this post, I will walk through the R code used for our 2018 paper, which takes a confirmatory factor analysis (CFA) approach to addressing the factor structure of ADHD symptoms in adults.**
 
 **Data Cleaning** <br/>
 <br/>
@@ -66,19 +68,27 @@ ADHD~~1*ADHD
 Runsa1 <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, missing="FIML", estimator="MLR")
 summary(Runsa1,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 ```
-Model fit was evaluated using the comparative fit index (CFI), Tucker-Lewis index (TLI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR). A value close to or greater than .95 for the TLI and the CFI, and a value close to or less than .06 for the RMSEA (Hu & Bentler, 1998) and SRMR less than .08 (Kline, 2016) indicate a good fit between the model and the observed data. Chi-square difference tests were also utilized to determine which model provided a significantly better fit to the data.
+We use the comparative fit index (CFI), Tucker-Lewis index (TLI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR) to evaluate model fit. <br/>
+Interpretation: 
+- A value close to or greater than .95 for the TLI and the CFI, and a value close to or less than .06 for the RMSEA (Hu & Bentler, 1998) and SRMR less than .08 (Kline, 2016) indicate a good fit between the model and the observed data. 
+Chi-square difference tests were also utilized to determine which model provided a significantly better fit to the data.
 
 ```r
 #reliability
 reliability(Runsa1) 
 ```
-For each of the models, we also computed the reliabilities for each of the factors, or the proportion of variance in the indicators of each factor that were accounted for by that factor specifically (ωh), as well as the proportion of variance in all items that were accounted for by all factors together (ω; e.g., Reise, Bonifay, & Haviland, 2013).  Recommendations by Reise et al. suggest a minimual acceptable value of ωh of.50, though a value of .75 is more acceptable. Comparison of ω and ωh values can indicate how much reliable variance could be attributed to general vs. specific factors.
+Here, we compute the reliabilities for each of the factors. This is equivalent to the proportion of variance in the indicators of each factor that were accounted for by that factor specifically (ωh), as well as the proportion of variance in all items that were accounted for by all factors together (ω; e.g., Reise, Bonifay, & Haviland, 2013). <br/>
+Interpretation: 
+- Recommendations by Reise et al. suggest a minimual acceptable value of ωh of.50, though a value of .75 is more acceptable. 
+- Comparison of ω and ωh values can indicate how much reliable variance could be attributed to general vs. specific factors.
 
 ```r
 #Hancock
 HancockMueller(Runsa1)
 ```
-We also examined construct replicability of each factor by calculating the H-index (Hancock & Mueller, 2001), indicating how well a set of items represents a latent variable. High H values (>.70) indicate the factor is stable and is less likely to fluctuate between various samples. 
+Here, calculate the H-index (Hancock & Mueller, 2001) to examine construct replicability of each factor, indicating how well a set of items represents a latent variable.  <br/>
+Interpretation:
+- High H values (>.70) indicate the factor is stable and is less likely to fluctuate between various samples. 
 
 ```r
 #Measurement invariance: dataset
@@ -88,7 +98,9 @@ Runsa1C <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group
 lavTestLRT(Runsa1A,Runsa1B)
 lavTestLRT(Runsa1A,Runsa1C)
 ```
-Measurement invariance was assessed to examine whether models were equivalent across gender and across datasets, which would provide evidence that these models hold in different subpopulations. To do this, we tested weak invariance first by comparing the fit of a configural model (i.e., a model that was fit to data for males and females, but no constraints were imposed) with that of the same model but with all factor loadings constrained to be equal across gender. 
+Here, we assess Measurement invariance to examine whether models were equivalent across gender and across datasets, which would provide evidence that these models hold in different subpopulations. To do this, we tested weak invariance first by comparing the fit of a configural model (i.e., a model that was fit to data for males and females, but no constraints were imposed) with that of the same model but with all factor loadings constrained to be equal across gender.  <br/>
+Interpretation:
+- A significant χ2diff test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected.
 
 ```r
 #Measurement invariance: Gender
