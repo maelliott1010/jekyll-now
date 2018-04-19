@@ -32,7 +32,11 @@ Some quick notes about using two different scales:
 **The Analyses** <br/>
 Tools:
 - All analyses were conducted in R with R Studio
-- We used the *lavaan* 0.5-22  package for our main CFA analyses, more info. [here](http://lavaan.ugent.be).
+- We used the *lavaan* 0.5-22  package for our main CFA analyses, more about *lavaan* [here](http://lavaan.ugent.be).
+<br/>
+WE chose to run two different estimators in this analysis. We'll start this tutorial with robust maximum likelihood estimator (MLR), which produces standard errors and a chi-square test statistic that are robust to non-normality for incomplete data. 
+- *Note*: Our data is on a 4-point scale, which is on the threshold of recommendations to either utilize a categorical or continuous estimation method (Rhemtulla, Brosseau-Liard, & Savalei, 2012). *Therefore, we also ran our analyses utilizing the unweighted least squares estimator (ULSMV) in order to account for the categorical nature of our data. Given that the pattern of results was highly similar using either the MLR or the ULSMV estimators, we only reported findings with the MLR estimator in our paper. Code for the ULSMV estimator is provided at the bottom half of this post.*  
+<br/>
 
 ```r
 #Hancock Mueller#
@@ -56,13 +60,22 @@ ADHD~~1*ADHD
 '
 Runsa1 <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, missing="FIML", estimator="MLR")
 summary(Runsa1,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
+```
+Model fit was evaluated using the comparative fit index (CFI), Tucker-Lewis index (TLI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR). A value close to or greater than .95 for the TLI and the CFI, and a value close to or less than .06 for the RMSEA (Hu & Bentler, 1998) and SRMR less than .08 (Kline, 2016) indicate a good fit between the model and the observed data. Chi-square difference tests were also utilized to determine which model provided a significantly better fit to the data.
 
+```r
 #reliability
 reliability(Runsa1) 
+```
+For each of the models, we also computed the reliabilities for each of the factors, or the proportion of variance in the indicators of each factor that were accounted for by that factor specifically (ωh), as well as the proportion of variance in all items that were accounted for by all factors together (ω; e.g., Reise, Bonifay, & Haviland, 2013).  Recommendations by Reise et al. suggest a minimual acceptable value of ωh of.50, though a value of .75 is more acceptable. Comparison of ω and ωh values can indicate how much reliable variance could be attributed to general vs. specific factors.
 
+```r
 #Hancock
 HancockMueller(Runsa1)
+```
+We also examined construct replicability of each factor by calculating the H-index (Hancock & Mueller, 2001), indicating how well a set of items represents a latent variable. High H values (>.70) indicate the factor is stable and is less likely to fluctuate between various samples. 
 
+```r
 #Measurement invariance: dataset
 Runsa1A <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group="Dataset", missing="FIML", estimator="MLR", std.lv=TRUE)
 Runsa1B <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group="Dataset", group.equal=c("loadings"), missing="FIML", estimator="MLR",std.lv=TRUE)
@@ -165,7 +178,10 @@ summary(Runsa4,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 #Reliability
 reliability(Runsa4) 
 HancockMueller(Runsa4)
+```
+For the bifactor models, we also computed the ECV to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015). An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
 
+```r
 #Measurement invariance: dataset
 Runsa4A <- cfa(Modsa4, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estimator="MLR",  std.lv=TRUE, missing="FIML", group="Dataset")
 Runsa4B <- cfa(Modsa4, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estimator="MLR", std.lv=TRUE, missing="FIML", group="Dataset", group.equal=c("loadings"))
