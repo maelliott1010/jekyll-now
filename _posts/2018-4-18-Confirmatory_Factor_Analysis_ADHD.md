@@ -68,7 +68,8 @@ ADHD~~1*ADHD
 Runsa1 <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, missing="FIML", estimator="MLR")
 summary(Runsa1,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 ```
-We use the comparative fit index (CFI), Tucker-Lewis index (TLI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR) to evaluate model fit. <br/>
+We use the comparative fit index (CFI), Tucker-Lewis index (TLI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR) to evaluate model fit. We use the full information maximum likelihood (FIML), or direct maximum
+likelihood, to handle missing data. FIML does not estimate missing values, and instead estimates relationships using all available data, assuming multivariate normality and MCAR or MAR. In the case of our sample, we had Missing At Random (MAR) data, but this parameter should be modified in replication attempts to meet the unique nature of missing observations in new samples. A common alternative approach is mulitple imputations (MI), which is more flexible than FIML, but comes with several costs. More on missing data techniques [here](https://statisticalhorizons.com/wp-content/uploads/Allison-2003-JAP-Special-Issue.pdf). <br/>
 <br/>
 Interpretation: 
 - A value close to or greater than .95 for the TLI and the CFI, and a value close to or less than .06 for the RMSEA (Hu & Bentler, 1998) and SRMR less than .08 (Kline, 2016) indicate a good fit between the model and the observed data. 
