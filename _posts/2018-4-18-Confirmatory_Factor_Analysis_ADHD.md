@@ -69,6 +69,7 @@ Runsa1 <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, missin
 summary(Runsa1,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 ```
 We use the comparative fit index (CFI), Tucker-Lewis index (TLI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR) to evaluate model fit. <br/>
+<br/>
 Interpretation: 
 - A value close to or greater than .95 for the TLI and the CFI, and a value close to or less than .06 for the RMSEA (Hu & Bentler, 1998) and SRMR less than .08 (Kline, 2016) indicate a good fit between the model and the observed data. 
 Chi-square difference tests were also utilized to determine which model provided a significantly better fit to the data.
@@ -78,6 +79,7 @@ Chi-square difference tests were also utilized to determine which model provided
 reliability(Runsa1) 
 ```
 Here, we compute the reliabilities for each of the factors. This is equivalent to the proportion of variance in the indicators of each factor that were accounted for by that factor specifically (ωh), as well as the proportion of variance in all items that were accounted for by all factors together (ω; e.g., Reise, Bonifay, & Haviland, 2013). <br/>
+<br/>
 Interpretation: 
 - Recommendations by Reise et al. suggest a minimual acceptable value of ωh of.50, though a value of .75 is more acceptable. 
 - Comparison of ω and ωh values can indicate how much reliable variance could be attributed to general vs. specific factors.
@@ -87,6 +89,7 @@ Interpretation:
 HancockMueller(Runsa1)
 ```
 Here, calculate the H-index (Hancock & Mueller, 2001) to examine construct replicability of each factor, indicating how well a set of items represents a latent variable.  <br/>
+<br/>
 Interpretation:
 - High H values (>.70) indicate the factor is stable and is less likely to fluctuate between various samples. 
 
@@ -99,6 +102,7 @@ lavTestLRT(Runsa1A,Runsa1B)
 lavTestLRT(Runsa1A,Runsa1C)
 ```
 Here, we assess Measurement invariance to examine whether models were equivalent across gender and across datasets, which would provide evidence that these models hold in different subpopulations. To do this, we tested weak invariance first by comparing the fit of a configural model (i.e., a model that was fit to data for males and females, but no constraints were imposed) with that of the same model but with all factor loadings constrained to be equal across gender.  <br/>
+<br/>
 Interpretation:
 - A significant χ2diff test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected.
 
@@ -208,7 +212,10 @@ summary(Runsa4,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 reliability(Runsa4) 
 HancockMueller(Runsa4)
 ```
-*Note:* For the bifactor models, we also computed the ECV to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015). An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
+*Note:* For the bifactor models, we also computed the ECV to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015). <br/>
+<br/>
+Interpretation:
+-An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
 
 ```r
 #Measurement invariance: dataset
