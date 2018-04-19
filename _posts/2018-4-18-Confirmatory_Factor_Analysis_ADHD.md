@@ -105,7 +105,7 @@ lavTestLRT(Runsa1A,Runsa1C)
 Here, we assess Measurement invariance to examine whether models were equivalent across gender and across datasets, which would provide evidence that these models hold in different subpopulations. To do this, we tested weak invariance first by comparing the fit of a configural model (i.e., a model that was fit to data for males and females, but no constraints were imposed) with that of the same model but with all factor loadings constrained to be equal across gender.  <br/>
 <br/>
 Interpretation:
-- A significant χ2diff test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected.
+- A significant chi-squared difference test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected.
 
 ```r
 #Measurement invariance: Gender
