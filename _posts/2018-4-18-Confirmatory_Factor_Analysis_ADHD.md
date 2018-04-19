@@ -14,6 +14,7 @@ This study analysis systematically examines the one-factor, two-factor, three-fa
 **In this post, I will walkthrough the R code used for our 2018 paper, which takes a confirmatory factor analysis (CFA) approach to addressing the factor structure of ADHD symptoms in adults.**
 
 **Data Cleaning** <br/>
+<br/>
 Before I get into the analysis, here is some information about our dataset:
 - We started with a dataset from three samples from parents of children with and without ADHD (n = 673, 430 females, and 243 males). 
 - Getting the right subset of data for the analyses was a bit tricky. We had to worry about a couple important factors: *independence* and *equal n for males and females* For instance, in some cases, only mothers participated; in others, the men and women were couples parenting the same child.
@@ -23,6 +24,7 @@ Before I get into the analysis, here is some information about our dataset:
 - The resulting sample included 215 males and 215 females.
 
 **Scale Conversion** <br/>
+<br/>
 Self-report of ADHD symptoms was assessed using the Current Symptom Scale-Self-Report (CSS; Barkley & Murphy, 2006) in Study 1 and 2, and the Barkley Adult ADHD Rating Scale-IV (BAARS; Barkley, 2011) in Study 3. <br/>
 Some quick notes about using two different scales:
 - Both the BAARS and the CSS contain 18 items that assess the presence of DSM-5 symptoms for ADHD. 
@@ -30,6 +32,7 @@ Some quick notes about using two different scales:
 - Since the CSS is rated on a scale from 0 -3, items on the BAARS had to be converted to a scale from 0 to 3 also. 
 
 **The Analyses** <br/>
+<br/>
 Tools:
 - All analyses were conducted in R with R Studio
 - We used the *lavaan* 0.5-22  package for our main CFA analyses, more about *lavaan* [here](http://lavaan.ugent.be).
@@ -84,14 +87,23 @@ Runsa1B <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group
 Runsa1C <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group="Dataset", group.equal=c("loadings", "intercepts"), missing="FIML", estimator="MLR", std.lv=TRUE)
 lavTestLRT(Runsa1A,Runsa1B)
 lavTestLRT(Runsa1A,Runsa1C)
+```
+Measurement invariance was assessed to examine whether models were equivalent across gender and across datasets, which would provide evidence that these models hold in different subpopulations. To do this, we tested weak invariance first by comparing the fit of a configural model (i.e., a model that was fit to data for males and females, but no constraints were imposed) with that of the same model but with all factor loadings constrained to be equal across gender. 
 
+```r
 #Measurement invariance: Gender
 Runsa1AA <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group="Gender",estimator="MLR", std.lv=TRUE, missing="FIML")
 Runsa1BB <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group="Gender", group.equal=c("loadings"), estimator="MLR", std.lv=TRUE, missing="FIML")
 Runsa1CC <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, group="Gender", group.equal=c("loadings", "intercepts"), estimator="MLR", std.lv=TRUE, missing="FIML")
 lavTestLRT(Runsa1AA,Runsa1BB)
 lavTestLRT(Runsa1AA,Runsa1CC)
+```
+If weak invariance held, we then tested strong invariance by comparing the configural model with the same model but with all factor loadings as well as intercepts constrained to be equal across gender. The same analysis was performed across datasets. However, it is necessary to note that these analyses are exploratory given the limited sample size.
 
+Finally, we  examined the concurrent validity of the models demonstrating the best fit by regressing participants’ education, depression, hostility, positive parenting, and lax parenting on each of the latent factors as specified in their respective configurations.
+
+**Repeat these procedures for Two- and Three- Factor models:**
+```r
 ##Two-Factor Model
 
 Modsa2<- 
@@ -162,7 +174,10 @@ Runsa3BB <- cfa(Modsa3, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estim
 Runsa3CC <- cfa(Modsa3, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR,estimator="MLR", std.lv=TRUE, missing="FIML", group="Gender", group.equal=c("loadings", "intercepts"))
 lavTestLRT(Runsa3AA,Runsa3BB)
 lavTestLRT(Runsa3AA,Runsa3CC)
+```
+**Bifactor Models**
 
+```r
 ##Bifactor model (INATT/HYP)
 
 Modsa4 <- '
@@ -181,7 +196,7 @@ summary(Runsa4,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 reliability(Runsa4) 
 HancockMueller(Runsa4)
 ```
-For the bifactor models, we also computed the ECV to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015). An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
+*Note:* For the bifactor models, we also computed the ECV to examine the unidimensionality of the substantive ADHD factor (Rodriguez et al., 2015). An ECV of greater than .70 indicates that the factor loadings of the general ADHD factor are increasingly similar to those that might be obtained by the estimate of a one-dimensional model (Rodriguez et al., 2015). 
 
 ```r
 #Measurement invariance: dataset
@@ -247,7 +262,227 @@ Runs5BB <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuS
 Runs5CC <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings", "intercepts"))
 lavTestLRT(Runs5AA,Runs5BB)
 lavTestLRT(Runs5AA,Runs5CC)
+```
+
+**ULSMV Estimator**
+As mentioned in the beginning of this post, our data is on a 4-point scale, which is on the threshold of recommendations to either utilize a categorical or continuous estimation method (Rhemtulla, Brosseau-Liard, & Savalei, 2012). The unweighted least squares estimator (ULSMV) can be used to account for the categorical nature of a dataset. *Given that the pattern of results was highly similar using either the MLR or the ULSMV estimators, we only reported findings with the MLR estimator in our paper. Nevertheless, we provide code for the ULSMV estimator here:*
 
 ```r
+#Hancock Mueller#
+HancockMueller<-function(x){
+  loads<-inspect(x,"std")$lambda
+  facs<-colnames(loads)
+  out<-rep(NA,length(facs))
+  names(out)<-facs
+  
+  for(i in facs){
+    out[i]<-(1+(1/sum((loads[,i]^2)/(1-loads[,i]^2))))^-1
+  }
+  out
+}
+
+#Reducing dataset to 3 indicators#
+tempdata2<-Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR
+sapply(tempdata2[,6:24],table)
+
+tempdata2[which(tempdata2$CuSS_S1==3),]$CuSS_S1<-2
+tempdata2[which(tempdata2$CuSS_S2==3),]$CuSS_S2<-2
+tempdata2[which(tempdata2$CuSS_S3==3),]$CuSS_S3<-2
+tempdata2[which(tempdata2$CuSS_S4==3),]$CuSS_S4<-2
+tempdata2[which(tempdata2$CuSS_S5==3),]$CuSS_S5<-2
+tempdata2[which(tempdata2$CuSS_S6==3),]$CuSS_S6<-2
+tempdata2[which(tempdata2$CuSS_S7==3),]$CuSS_S7<-2
+tempdata2[which(tempdata2$CuSS_S8==3),]$CuSS_S8<-2
+tempdata2[which(tempdata2$CuSS_S9==3),]$CuSS_S9<-2
+tempdata2[which(tempdata2$CuSS_S10==3),]$CuSS_S10<-2
+tempdata2[which(tempdata2$CuSS_S11==3),]$CuSS_S11<-2
+tempdata2[which(tempdata2$CuSS_S12==3),]$CuSS_S12<-2
+tempdata2[which(tempdata2$CuSS_S13==3),]$CuSS_S13<-2
+tempdata2[which(tempdata2$CuSS_S14==3),]$CuSS_S14<-2
+tempdata2[which(tempdata2$CuSS_S15==3),]$CuSS_S15<-2
+tempdata2[which(tempdata2$CuSS_S16==3),]$CuSS_S16<-2
+tempdata2[which(tempdata2$CuSS_S17==3),]$CuSS_S17<-2
+tempdata2[which(tempdata2$CuSS_S18==3),]$CuSS_S18<-2
+
+##One-Factor Model 
+
+Mods1 <- '
+ADHD =~ NA*CuSS_S1+CuSS_S2+CuSS_S3+CuSS_S4+CuSS_S5+CuSS_S6+CuSS_S7+CuSS_S8+CuSS_S9+CuSS_S10+CuSS_S11+CuSS_S12+CuSS_S13+CuSS_S14+CuSS_S15+CuSS_S16+CuSS_S17+CuSS_S18
+ADHD~~1*ADHD
+'
+Runs1 <- cfa(Mods1, dat=tempdata2, missing="pairwise", estimator="WLSMV", zero.add="default", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"))
+summary(Runs1,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
+
+#reliability
+reliability(Runs1) 
+
+#Hancock
+HancockMueller(Runs1)
+
+#Measurement invariance: dataset
+Runs1A <- cfa(Mods1, dat=tempdata2, group="Dataset", estimator="ULSMV", zero.add=c(0.5,0.5), ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise")
+Runs1B <- cfa(Mods1, dat=tempdata2, group="Dataset", group.equal=c("loadings"), missing="pairwise", estimator="ULSMV", zero.add=c(0.5,0.5), ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE)
+Runs1C <- cfa(Mods1, dat=tempdata2, group="Dataset", group.equal=c("loadings", "intercepts"), missing="pairwise", estimator="ULSMV", zero.add=c(0.5,0.5), ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE)
+lavTestLRT(Runs1A,Runs1B, method="satorra.bentler.2010")
+lavTestLRT(Runs1A,Runs1C, method="satorra.bentler.2010")
+
+#Measurement invariance: Gender
+Runs1AA <- cfa(Mods1, dat=tempdata2, group="Gender",estimator="ULSMV", zero.add=c(0.5,0.5), ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise")
+Runs1BB <- cfa(Mods1, dat=tempdata2, group="Gender", group.equal=c("loadings"), estimator="ULSMV",zero.add=c(0.5,0.5), ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise")
+Runs1CC <- cfa(Mods1, dat=tempdata2, group="Gender", group.equal=c("loadings", "intercepts"),zero.add=c(0.5,0.5), estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise")
+lavTestLRT(Runs1AA,Runs1BB, method="satorra.bentler.2010")
+lavTestLRT(Runs1AA,Runs1CC, method="satorra.bentler.2010")
+
+##Two-Factor Model
+
+Mods2<- 
+  'INATT=~ NA*CuSS_S1 + CuSS_S3 + CuSS_S5 + CuSS_S7 + CuSS_S9 + CuSS_S11 + CuSS_S13 + CuSS_S15 + CuSS_S17
+
+HYP=~ NA*CuSS_S2 + CuSS_S4 + CuSS_S6 + CuSS_S8 + CuSS_S10 + CuSS_S12 + CuSS_S14 + CuSS_S16 + CuSS_S18
+
+INATT~~1*INATT
+HYP~~1*HYP
+
+INATT~~HYP
+'
+
+Runs2 <- cfa(Mods2, dat=tempdata2, estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), zero.add=c(0.5,0.5), std.lv=TRUE, missing="pairwise")
+
+summary(Runs2,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE) 
+
+#reliability
+reliability(Runs2)
+HancockMueller(Runs2)
+
+#Measurement invariance: dataset
+Runs2A <- cfa(Mods2, dat=tempdata2, estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), zero.add=c(0.5,0.5), std.lv=TRUE, missing="pairwise", group="Dataset")
+Runs2B <- cfa(Mods2, dat=tempdata2, estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset", zero.add=c(0.5,0.5), group.equal=c("loadings"))
+Runs2C <- cfa(Mods2, dat=tempdata2, estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset",zero.add=c(0.5,0.5), group.equal=c("loadings", "intercepts"))
+lavTestLRT(Runs2A,Runs2B, method="satorra.bentler.2010")
+lavTestLRT(Runs2A,Runs2C, method="satorra.bentler.2010")
+
+#Measurement invariance: Gender
+Runs2AA <- cfa(Mods2, dat=tempdata2, estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", zero.add=c(0.5,0.5))
+Runs2BB <- cfa(Mods2, dat=tempdata2, estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings"), zero.add=c(0.5,0.5))
+Runs2CC <- cfa(Mods2, dat=tempdata2, estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings", "intercepts"), zero.add=c(0.5,0.5))
+lavTestLRT(Runs2AA,Runs2BB, method="satorra.bentler.2010")
+lavTestLRT(Runs2AA,Runs2CC, method="satorra.bentler.2010")
+
+##Three-Factor Model
+
+Mods3<- 
+  'INATT=~ NA*CuSS_S1 + CuSS_S3 + CuSS_S5 + CuSS_S7 + CuSS_S9 + CuSS_S11 + CuSS_S13 + CuSS_S15 + CuSS_S17
+
+IMP=~ NA*CuSS_S14 + CuSS_S16 + CuSS_S18
+
+HYP=~ NA*CuSS_S2 + CuSS_S4 + CuSS_S6 + CuSS_S8 + CuSS_S10 + CuSS_S12
+INATT~~1*INATT
+IMP~~1*IMP
+HYP~~1*HYP
+INATT~~HYP
+IMP~~INATT
+HYP~~IMP
+'
+Runs3 <- cfa(Mods3, dat=tempdata2, estimator="ULSMV",ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18",std.lv=TRUE, missing="pairwise"),zero.add=c(0.5,0.5))
+summary(Runs3,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE) 
+
+#reliability
+reliability(Runs3)
+HancockMueller(Runs3)
+
+#Measurement invariance: dataset
+Runs3A <- cfa(Mods3, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset",zero.add=c(0.5,0.5))
+Runs3Ba <- cfa(Mods3, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset", group.equal=c("loadings"), zero.add=c(0.5,0.5))
+Runs3C <- cfa(Mods3, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset", group.equal=c("loadings", "intercepts"),zero.add=c(0.5,0.5))
+lavTestLRT(Runs3A,Runs3Ba, method="satorra.bentler.2010")
+lavTestLRT(Runs3A,Runs3C, method="satorra.bentler.2010")
+
+#Measurement invariance: Gender
+Runs3AA <- cfa(Mods3, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender",zero.add=c(0.5,0.5))
+Runs3BB <- cfa(Mods3, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings"),zero.add=c(0.5,0.5))
+Runs3CC <- cfa(Mods3, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings", "intercepts"),zero.add=c(0.5,0.5))
+lavTestLRT(Runs3AA,Runs3BB,method="satorra.bentler.2010")
+lavTestLRT(Runs3AA,Runs3CC,method="satorra.bentler.2010")
+
+##Bifactor model (INATT/HYP)
+
+Mods4 <- '
+ADHD =~ CuSS_S1+CuSS_S2+CuSS_S3+CuSS_S4+CuSS_S5+CuSS_S6+CuSS_S7+CuSS_S8+CuSS_S9+CuSS_S10+CuSS_S11+CuSS_S12+CuSS_S13+CuSS_S14+CuSS_S15+CuSS_S16+CuSS_S17+CuSS_S18
+INATT=~CuSS_S3 + CuSS_S1 + CuSS_S5 + CuSS_S7 + CuSS_S9 + CuSS_S11 + CuSS_S13 + CuSS_S15 + CuSS_S17
+HYP=~CuSS_S2 + CuSS_S4 + CuSS_S6 + CuSS_S8 + CuSS_S10 + CuSS_S12 + CuSS_S14 + CuSS_S16 + CuSS_S18
+
+ADHD~~0*INATT
+ADHD~~0*HYP
+INATT~~0*HYP
+'
+Runs4 <- cfa(Mods4, dat=tempdata2, estimator="ULSMV",ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"),std.lv=TRUE,zero.add=c(0.5,0.5))
+summary(Runs4,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE) 
+
+#Reliability
+reliability(Runs4) 
+HancockMueller(Runs4)
+
+#Measurement invariance: dataset
+Runs4A <- cfa(Mods4, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset",zero.add=c(0.5,0.5))
+Runs4B <- cfa(Mods4, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset", group.equal=c("loadings"),zero.add=c(0.5,0.5))
+Runs4C <- cfa(Mods4, dat=tempdata2, group="Dataset", group.equal=c("loadings", "intercepts"), missing="pairwise", estimator="ULSMV", zero.add=c(0.5,0.5), ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE,zero.add=c(0.5,0.5))
+lavTestLRT(Runs4A,Runs4B,method="satorra.bentler.2010")
+lavTestLRT(Runs4A,Runs4C,method="satorra.bentler.2010")
+
+#Measurement invariance: Gender
+Runs4AA <- cfa(Mods4, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender",zero.add=c(0.5,0.5))
+Runs4BB <- cfa(Mods4, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings"),zero.add=c(0.5,0.5))
+Runs4CC <- cfa(Mods4, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings", "intercepts"),zero.add=c(0.5,0.5))
+lavTestLRT(Runs4AA,Runs4BB,method="satorra.bentler.2010")
+lavTestLRT(Runs4AA,Runs4CC,method="satorra.bentler.2010")
+
+#Explained common variance
+L<-inspect(Runs4, "coef")$lambda
+lsq<-L*L
+ECV.Run4<-sum(lsq[,1])/sum(lsq)
+
+##Bifactor Model-3#
+
+Mods5 <- '
+ADHD =~ CuSS_S1+CuSS_S2+CuSS_S3+CuSS_S4+CuSS_S5+CuSS_S6+CuSS_S7+CuSS_S8+CuSS_S9+CuSS_S10+CuSS_S11+CuSS_S12+CuSS_S13+CuSS_S14+CuSS_S15+CuSS_S16+CuSS_S17+CuSS_S18
+INATT=~CuSS_S3 + CuSS_S1 + CuSS_S5 + CuSS_S7 + CuSS_S9 + CuSS_S11 + CuSS_S13 + CuSS_S15 + CuSS_S17
+HYP=~CuSS_S2 + CuSS_S4 + CuSS_S6 + CuSS_S8 + CuSS_S10 + CuSS_S12 
+IMP=~CuSS_S14+CuSS_S16+CuSS_S18
 
 
+ADHD~~0*INATT
+ADHD~~0*HYP
+ADHD~~0*IMP
+INATT~~0*HYP
+INATT~~0*IMP
+HYP~~0*IMP
+
+'
+Runs5 <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", std.lv=TRUE, ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), missing ="pairwise", zero.add=c(0.5,0.5))
+summary(Runs5,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE) 
+
+# Reliability
+
+reliability(Runs5) 
+HancockMueller(Runs5)
+
+#Explained common variance
+M<-inspect(Runs5, "coef")$lambda
+lsq<-M*M
+ECV.Run5<-sum(lsq[,1])/sum(lsq)
+
+
+#Measurement invariance: dataset
+Runs5A <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset",zero.add=c(0.5,0.5))
+Runs5B <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Dataset", group.equal=c("loadings"),zero.add=c(0.5,0.5))
+Runs5C <- cfa(Mods5, dat=tempdata2, group="Dataset", group.equal=c("loadings", "intercepts"), missing="pairwise", estimator="ULSMV", zero.add=c(0.5,0.5), ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE,zero.add=c(0.5,0.5))
+lavTestLRT(Runs5A,Runs5B, method="satorra.bentler.2010")
+lavTestLRT(Runs5A,Runs5C, method="satorra.bentler.2010")
+
+#Measurement invariance: Gender
+Runs5AA <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender",zero.add=c(0.5,0.5))
+Runs5BB <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings"),zero.add=c(0.5,0.5))
+Runs5CC <- cfa(Mods5, dat=tempdata2,estimator="ULSMV", ordered=c("CuSS_S1", "CuSS_S2","CuSS_S3", "CuSS_S4", "CuSS_S5", "CuSS_S6", "CuSS_S7", "CuSS_S8", "CuSS_S9", "CuSS_S10", "CuSS_S11", "CuSS_S12", "CuSS_S13", "CuSS_S14", "CuSS_S15", "CuSS_S16", "CuSS_S17", "CuSS_S18"), std.lv=TRUE, missing="pairwise", group="Gender", group.equal=c("loadings", "intercepts"),zero.add=c(0.5,0.5))
+lavTestLRT(Runs5AA,Runs5BB, method="satorra.bentler.2010")
+lavTestLRT(Runs5AA,Runs5CC, method="satorra.bentler.2010")
+```
