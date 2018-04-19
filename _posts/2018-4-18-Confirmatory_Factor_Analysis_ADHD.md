@@ -33,8 +33,7 @@ Some quick notes about using two different scales:
 Tools:
 - All analyses were conducted in R with R Studio
 - We used the *lavaan* 0.5-22  package for our main CFA analyses, more about *lavaan* [here](http://lavaan.ugent.be).
-<br/>
-WE chose to run two different estimators in this analysis. We'll start this tutorial with robust maximum likelihood estimator (MLR), which produces standard errors and a chi-square test statistic that are robust to non-normality for incomplete data. 
+- We chose to run two different estimators in this analysis. We'll start this tutorial with robust maximum likelihood estimator (MLR), which produces standard errors and a chi-square test statistic that are robust to non-normality for incomplete data. 
 - *Note*: Our data is on a 4-point scale, which is on the threshold of recommendations to either utilize a categorical or continuous estimation method (Rhemtulla, Brosseau-Liard, & Savalei, 2012). *Therefore, we also ran our analyses utilizing the unweighted least squares estimator (ULSMV) in order to account for the categorical nature of our data. Given that the pattern of results was highly similar using either the MLR or the ULSMV estimators, we only reported findings with the MLR estimator in our paper. Code for the ULSMV estimator is provided at the bottom half of this post.*  
 <br/>
 
