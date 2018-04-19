@@ -16,8 +16,8 @@ This study analysis systematically examines the one-factor, two-factor, three-fa
 Before I get into the analysis, here is some information about our dataset:
 - We started with a dataset from three samples from parents of children with and without ADHD (n = 673, 430 females, and 243 males). 
 - Getting the right subset of data for the analyses was a bit tricky. We had to worry about a couple important factors: *independence* and *equal n for males and females* For instance, in some cases, only mothers participated; in others, the men and women were couples parenting the same child.
-- To tackle these issues, we did the folloiwng:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- To ensure *independence* of the data, male and female partners from within the same family were not included (i.e., only one parent from each two-parent family was randomly chosen to be included). 
+- To tackle these issues, we performed the following data cleaning: <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- To ensure *independence* of the data, male and female partners from within the same family were not included (i.e., only one parent from each two-parent family was randomly chosen to be included). <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- In order to create a final dataset with an *equal number of males and females*, we randomly selected 215 males out of the 243 males, and then included the remaining females who were not coupled with the 215 males. 
 - The resulting sample included 215 males and 215 females.
 
