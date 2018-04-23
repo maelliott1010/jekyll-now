@@ -31,7 +31,7 @@ Self-report of ADHD symptoms was assessed using the Current Symptom Scale-Self-R
 Some quick notes about using two different scales:
 - Both the BAARS and the CSS contain 18 items that assess the presence of DSM-5 symptoms for ADHD. 
 - The BAARS is an updated version of the CSS, with the only differences being additional wording to make symptoms more applicable to adults.
-- Since the CSS is rated on a scale from 0 -3, items on the BAARS had to be converted to a scale from 0 to 3 also. 
+- Since the CSS is rated on a scale from 0 to 3, items on the BAARS had to be converted to a scale from 0 to 3 also. 
 
 **The Analyses** <br/>
 <br/>
@@ -82,7 +82,7 @@ reliability(Runsa1)
 Here, we compute the reliabilities for each of the factors. This is equivalent to the proportion of variance in the indicators of each factor that were accounted for by that factor specifically (ωh), as well as the proportion of variance in all items that were accounted for by all factors together (ω; e.g., Reise, Bonifay, & Haviland, 2013). <br/>
 <br/>
 Interpretation: 
-- Recommendations by Reise et al. suggest a minimual acceptable value of ωh of.50, though a value of .75 is more acceptable. 
+- Recommendations by Reise et al. suggest a minimual acceptable value of ωh of .50, though a value of .75 is more acceptable. 
 - Comparison of ω and ωh values can indicate how much reliable variance could be attributed to general vs. specific factors.
 
 ```r
