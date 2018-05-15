@@ -15,6 +15,7 @@ Our analysis systematically examines the one-factor, two-factor, three-factor, a
 - For the bifactor models, we examine estimates for the unidimensionality of the scale (i.e., explained common variance [ECV]; Rodriguez et al., 2015). 
 - As exploratory analyses, we examine the invariance of the models across both gender and datasets. 
 - Finally, we explore model validity by regressing variables with known associations with ADHD symptoms, such as education, depression, hostility, and both positive and negative parenting on the latent factors as specified in the best-fitting models. 
+- We also provide code for the NET procedure, which tests whether or not the 3-factor model is nested within either of the two bi-factor models.
 
 **In this post, I will walk through the R code used for our 2018 paper, which takes a confirmatory factor analysis (CFA) approach to addressing the factor structure of ADHD symptoms in adults.**
 
@@ -108,7 +109,7 @@ lavTestLRT(Runsa1A,Runsa1C)
 Here, we assess Measurement invariance to examine whether models were equivalent across gender and across datasets, which would provide evidence that these models hold in different subpopulations. To do this, we tested weak invariance first by comparing the fit of a configural model (i.e., a model that was fit to data for males and females, but no constraints were imposed) with that of the same model but with all factor loadings constrained to be equal across gender.  <br/>
 <br/>
 Interpretation:
-- A significant chi-squared difference test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected. *Note*: this was only done for nested models that were tested using the NET procedure
+- A significant chi-squared difference test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected. *Note*: this was only done for nested models that were tested using the NET procedure. The NET procedure code is explained further down in this post.
 
 ```r
 #Measurement invariance: Gender
