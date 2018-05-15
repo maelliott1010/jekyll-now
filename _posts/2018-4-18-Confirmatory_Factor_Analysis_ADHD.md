@@ -3,6 +3,8 @@ layout: post
 title: A Factor Analytic Approach to Understanding Adult ADHD: A Walkthrough of the CFA performed in Park et al. (2018)
 ---
 
+Files associated with this post can be found [here](https://github.com/maelliott1010/CFA-ADHD-Park_et_al.).
+
 **Before we get started, some background on ADHD symptoms...**
 The expected factor structure of ADHD symptoms has undergone many changes recently. Historically, the creation and validation of this factor structure was based on primarily juvenile male populations. Although it is typically assumed that the structure of symptoms holds across the lifespan, empirical study of the factor structure of ADHD symptoms in adults is quite recent. 
 
