@@ -11,7 +11,8 @@ The expected factor structure of ADHD symptoms has undergone many changes recent
 Our analysis systematically examines the one-factor, two-factor, three-factor, and bifactor models of adult ADHD symptoms. 
 - First, we evaluate the fit statistics of each of the models. 
 - Next, we obtain estimates of model-based reliability (e.g., coefficient omega and coefficient omega hierarchical; Rodriguez, Reise, & Haviland, 2015).
-- For the bifactor models, we examine estimates for the unidimensionality of the scale (i.e., explained common variance [ECV]; Rodriguez et al., 2015), and estimates of stability and construct replicability for each factor (e.g., H-factor; Hancock & Mueller, 2001). 
+- We then estimate the stability and construct replicability for each factor (e.g., H-factor; Hancock & Mueller, 2001).
+- For the bifactor models, we examine estimates for the unidimensionality of the scale (i.e., explained common variance [ECV]; Rodriguez et al., 2015). 
 - As exploratory analyses, we examine the invariance of the models across both gender and datasets. 
 - Finally, we explore model validity by regressing variables with known associations with ADHD symptoms, such as education, depression, hostility, and both positive and negative parenting on the latent factors as specified in the best-fitting models. 
 
@@ -31,8 +32,8 @@ Before I get into the analysis, here is some information about our dataset:
 <br/>
 Self-report of ADHD symptoms was assessed using the Current Symptom Scale-Self-Report (CSS; Barkley & Murphy, 2006) in Study 1 and 2, and the Barkley Adult ADHD Rating Scale-IV (BAARS; Barkley, 2011) in Study 3. <br/>
 Some quick notes about using two different scales:
-- Both the BAARS and the CSS contain 18 items that assess the presence of DSM-5 symptoms for ADHD. 
-- The BAARS is an updated version of the CSS, with the only differences being additional wording to make symptoms more applicable to adults.
+- Both the BAARS and the CSS contain 18 items that assess the presence of DSM-5 symptoms for ADHD. The CSS is rated on a scale from 0 to 3, while BAARS is rated from 0 to 4.
+- The BAARS is an updated version of the CSS, with the only differences being additional wording to make symptoms more applicable to adults. 
 - Since the CSS is rated on a scale from 0 to 3, items on the BAARS had to be converted to a scale from 0 to 3 also. 
 
 **The Analyses** <br/>
@@ -70,8 +71,8 @@ ADHD~~1*ADHD
 Runsa1 <- cfa(Modsa1, dat=Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR, missing="FIML", estimator="MLR")
 summary(Runsa1,standardized=TRUE,fit.measures=TRUE, rsquare=TRUE)
 ```
-We use the comparative fit index (CFI), Tucker-Lewis index (TLI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR) to evaluate model fit. We use the full information maximum likelihood (FIML), or direct maximum
-likelihood, to handle missing data. FIML does not estimate missing values, and instead estimates relationships using all available data, assuming multivariate normality and MCAR or MAR. In the case of our sample, we had Missing At Random (MAR) data, but this parameter should be modified in replication attempts to meet the unique nature of missing observations in new samples. A common alternative approach is mulitple imputations (MI), which is more flexible than FIML, but comes with several costs. More on missing data techniques [here](https://statisticalhorizons.com/wp-content/uploads/Allison-2003-JAP-Special-Issue.pdf). <br/>
+We use the comparative fit index (CFI), root mean square error of approximation (RMSEA), and standardized root mean square residual (SRMR) to evaluate model fit. We use the full information maximum likelihood (FIML), or direct maximum
+likelihood, to handle missing data. FIML does not estimate missing values, and instead estimates relationships using all available data, assuming multivariate normality and MCAR or MAR. This function may need to be modified in replication attempts to meet the unique nature of missing observations in new samples. A common alternative approach is mulitple imputations (MI), which is more flexible than FIML, but comes with several costs. More on missing data techniques [here](https://statisticalhorizons.com/wp-content/uploads/Allison-2003-JAP-Special-Issue.pdf). <br/>
 <br/>
 Interpretation: 
 - A value close to or greater than .95 for the TLI and the CFI, and a value close to or less than .06 for the RMSEA (Hu & Bentler, 1998) and SRMR less than .08 (Kline, 2016) indicate a good fit between the model and the observed data. 
