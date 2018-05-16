@@ -33,7 +33,7 @@ Before I get into the analysis, here is some information about our dataset:
 <br/>
 Self-report of ADHD symptoms was assessed using the Current Symptom Scale-Self-Report (CSS; Barkley & Murphy, 2006) in Study 1 and 2, and the Barkley Adult ADHD Rating Scale-IV (BAARS; Barkley, 2011) in Study 3. <br/>
 Some quick notes about using two different scales:
-- Both the BAARS and the CSS contain 18 items that assess the presence of DSM-5 symptoms for ADHD. The CSS is rated on a scale from 0 to 3, while BAARS is rated from 0 to 4.
+- Both the BAARS and the CSS contain 18 items that assess the presence of DSM-5 symptoms for ADHD. The CSS is rated on a scale from 0 to 3, while BAARS is rated from 1 to 4.
 - The BAARS is an updated version of the CSS, with the only differences being additional wording to make symptoms more applicable to adults. 
 - Since the CSS is rated on a scale from 0 to 3, items on the BAARS had to be converted to a scale from 0 to 3 also. 
 
@@ -77,7 +77,7 @@ likelihood, to handle missing data. FIML does not estimate missing values, and i
 <br/>
 Interpretation: 
 - A value close to or greater than .95 for the TLI and the CFI, and a value close to or less than .06 for the RMSEA (Hu & Bentler, 1998) and SRMR less than .08 (Kline, 2016) indicate a good fit between the model and the observed data. 
-Chi-square difference tests were also utilized to determine which model provided a significantly better fit to the data.
+Chi-square difference tests were also utilized to determine which model provided a significantly better fit to the data. We utilized the Satorra-Bentler scaled chi-square difference test and conducted hand calculations, following the formula provided [here.](https://www.statmodel.com/chidiff.shtml) *Note: this was only done for nested models that were tested using the NET procedure. The NET procedure code is explained further down in this post.*
 
 ```r
 #reliability
@@ -109,7 +109,7 @@ lavTestLRT(Runsa1A,Runsa1C)
 Here, we assess Measurement invariance to examine whether models were equivalent across gender and across datasets, which would provide evidence that these models hold in different subpopulations. To do this, we tested weak invariance first by comparing the fit of a configural model (i.e., a model that was fit to data for males and females, but no constraints were imposed) with that of the same model but with all factor loadings constrained to be equal across gender.  <br/>
 <br/>
 Interpretation:
-- A significant chi-squared difference test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected. *Note*: this was only done for nested models that were tested using the NET procedure. The NET procedure code is explained further down in this post.
+- A significant chi-squared difference test of invariance, in the case of our data, would suggest that a hypothesis that the model is invariant across a given variable (i.e., gender, dataset) can be rejected.
 
 ```r
 #Measurement invariance: Gender
