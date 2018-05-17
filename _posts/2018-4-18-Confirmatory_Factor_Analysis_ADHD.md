@@ -501,29 +501,6 @@ HancockMueller<-function(x){
   out
 }
 
-#Reducing dataset to 3 indicators#
-tempdata2<-Bifactor_Dataset_Nov_8_17_recodedtocorrectCIHR
-sapply(tempdata2[,6:24],table)
-
-tempdata2[which(tempdata2$CuSS_S1==3),]$CuSS_S1<-2
-tempdata2[which(tempdata2$CuSS_S2==3),]$CuSS_S2<-2
-tempdata2[which(tempdata2$CuSS_S3==3),]$CuSS_S3<-2
-tempdata2[which(tempdata2$CuSS_S4==3),]$CuSS_S4<-2
-tempdata2[which(tempdata2$CuSS_S5==3),]$CuSS_S5<-2
-tempdata2[which(tempdata2$CuSS_S6==3),]$CuSS_S6<-2
-tempdata2[which(tempdata2$CuSS_S7==3),]$CuSS_S7<-2
-tempdata2[which(tempdata2$CuSS_S8==3),]$CuSS_S8<-2
-tempdata2[which(tempdata2$CuSS_S9==3),]$CuSS_S9<-2
-tempdata2[which(tempdata2$CuSS_S10==3),]$CuSS_S10<-2
-tempdata2[which(tempdata2$CuSS_S11==3),]$CuSS_S11<-2
-tempdata2[which(tempdata2$CuSS_S12==3),]$CuSS_S12<-2
-tempdata2[which(tempdata2$CuSS_S13==3),]$CuSS_S13<-2
-tempdata2[which(tempdata2$CuSS_S14==3),]$CuSS_S14<-2
-tempdata2[which(tempdata2$CuSS_S15==3),]$CuSS_S15<-2
-tempdata2[which(tempdata2$CuSS_S16==3),]$CuSS_S16<-2
-tempdata2[which(tempdata2$CuSS_S17==3),]$CuSS_S17<-2
-tempdata2[which(tempdata2$CuSS_S18==3),]$CuSS_S18<-2
-
 ##One-Factor Model 
 
 Mods1 <- '
