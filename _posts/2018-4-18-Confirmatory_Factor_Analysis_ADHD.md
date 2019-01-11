@@ -1,7 +1,7 @@
 ---
-layout: post
 title: A Factor Analytic Approach to Understanding Adult ADHD: A Walkthrough of the CFA performed in Park et al. (2018)
 ---
+**A Factor Analytic Approach to Understanding Adult ADHD: A Walkthrough of the CFA performed in Park et al. (2018)**
 
 Files associated with this post can be found [here](https://github.com/maelliott1010/CFA-ADHD-Park_et_al.).
 
