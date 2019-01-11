@@ -4,8 +4,6 @@ title: About
 permalink: /about/
 ---
 
-### More About Me
-
 My interests are: Human and Computer Vision, Data Visualization, and Behavioral Statistics. 
 I love research, teaching, and the philosophy of science in general!
 
