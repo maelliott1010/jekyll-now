@@ -22,7 +22,7 @@ If you also find joy in applied perception research, or want to learn more, chec
 **Other interests:**
 
 * I have over 5 years of experience working as a usability engineer. I started this professional journey at Northrop Grumman in Washington DC and Baltimore, in 2014. Since then, I have consulted in software design and usability for a variety of tech companies and non-profits in Vancouver, BC. 
-* I have TA'ed a wide variety of Psychology and Computer Science courses during my graduate career, and I currently teach a 3rd year undergradate research methods course in the Cognitive Systems program at UBC (more info. [here](https://cogsys.ubc.ca/course-pages/cogs-303/).
+* I have TA'ed a wide variety of Psychology and Computer Science courses during my graduate career, and I currently teach a 3rd year undergradate research methods course in the Cognitive Systems program at UBC: more info [here](https://cogsys.ubc.ca/course-pages/cogs-303/).
 * I used to run a coding team of 10-20 undergraduates (at any given time) in my lab. We built a Java framework for perception experiments! It takes .xlsx, .jSON, and .XML input and makes interactive experiments that record and output participant data. We have a private GitHub repository with all of the code- if you're interested in checking it out, you can email me for access.
 
 Check out my [LinkedIn](https://www.linkedin.com/in/madisonelliott1010/) for more details about my professional experience.
