@@ -1,6 +1,4 @@
 ---
-title: A Factor Analytic Approach to Understanding Adult ADHD: A Walkthrough of the CFA performed in Park et al. (2018)
-layout: post
 ---
 **A Factor Analytic Approach to Understanding Adult ADHD: A Walkthrough of the CFA performed in Park et al. (2018)**
 
